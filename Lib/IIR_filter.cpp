@@ -3,8 +3,8 @@
 // constructors
 IIR_filter::IIR_filter(float tau,float Ts)
 {
-
-
+    a0 = -tau/(tau + Ts);
+    b0 = Ts/(tau + Ts);
 }
 IIR_filter::IIR_filter(float tau,float Ts,float K)
 {
@@ -16,7 +16,8 @@ IIR_filter::IIR_filter(float tau,float Ts,float K)
 
 float IIR_filter::eval(float u)
 {
-    return u;       // this has to be modified!!!
+    lastOutput = a0*lastOutput + b0*u;       // this has to be modified!!!
+    return lastOutput;
 }
 
 

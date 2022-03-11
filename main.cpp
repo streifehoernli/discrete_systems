@@ -14,13 +14,15 @@ DigitalOut led(LED1);
 static BufferedSerial serial_port(USBTX, USBRX);
 
 int main()
-{    serial_port.set_baud(115200);
-    serial_port.set_format(
-        /* bits */ 8,
-        /* parity */ BufferedSerial::None,
-        /* stop bit */ 1);
-    serial_port.set_blocking(false);
-    printf("Start loop\n");
+{    
+    IIR_filter fi(.1,.01);
+    const uint16_t N = 100;
+    float u[N], y[N];
+    for(uint16_t k =0; k < N; k++) {
+        u[k] = 1.0;
+        y[k] = fi(u[k]);
+        printf("%2.3f %2.3f \n", u[k], y[k]);
+    }
     
     while(1) 
     ;    

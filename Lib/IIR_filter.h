@@ -26,4 +26,6 @@ private:
     float *B;
     float *A;
     uint8_t nb,na;
+    float a0,b0;
+    float lastOutput = 0;
 };
